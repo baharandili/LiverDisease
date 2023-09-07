@@ -23,17 +23,17 @@ from sklearn.decomposition import PCA
 start_time=time.time()  #Program Start time
 #Titles
 tit1,tit2 = st.columns((4, 1))
-tit1.markdown("<h1 style='text-align: center;'><u>Perbandingan Akurasi Penyakit Liver</u> </h1>",unsafe_allow_html=True)
+tit1.markdown("<h1 style='text-align: center;'><u>Perbandingan Akurasi Penyakit</u> </h1>",unsafe_allow_html=True)
 st.sidebar.title("Dataset and Classifier")
 
-dataset_name=st.sidebar.selectbox("Select Dataset: ",('Liver',"none"))
+dataset_name=('Liver')
 classifier_name = st.sidebar.selectbox("Select Classifier: ",("KNN","Random Forest"))
 
 LE=LabelEncoder()
 def get_dataset(dataset_name):
     if dataset_name=="Liver":
         data=pd.read_csv("https://raw.githubusercontent.com/baharandili/Liverdisease/master/Csv/liverV1.csv")
-        st.header("Liver  Dataset")
+        st.header("Liver Dataset")
         return data
 
 
@@ -55,14 +55,13 @@ X,Y=selected_dataset(dataset_name)
 
 #Plot output variable
 def plot_op(dataset_name):
-    col1, col2 = st.columns((1, 5))
-    plt.figure(figsize=(12, 3))
-    plt.title("Classes in 'Not Diseased vs  Diseased' ")
+    col1, col2 = st.columns((13, 15))
+    plt.figure(figsize=(15, 15))
+    plt.title("Classes in 'Diseased' ")
     if dataset_name == "Liver":
-        col1.write(Y)
+        col2.write(Y)
         sns.countplot(Y, palette='gist_heat')
-        col2.pyplot()
-
+        col1.pyplot()
 
 st.write(data)
 st.write("Shape of dataset: ",data.shape)
@@ -146,7 +145,7 @@ def compute(Y_pred,Y_test):
         round((acc),2)))
 
 st.markdown("<hr>",unsafe_allow_html=True)
-st.header(f"1) Model for Prediction of {dataset_name}")
+st.header(f" Model for Prediction of {dataset_name}")
 st.subheader(f"Classifier Used: {classifier_name}")
 compute(Y_pred,Y_test)
 
